@@ -2,3 +2,27 @@ const txt = `"1","Ogrodzieniec","Zamek Ogrodzieniec – ruiny zamku leżącego n
 "2","Ojców","wieś w województwie małopolskim, w powiecie krakowskim, w gminie Skała, na terenie Wyżyny Krakowsko-Częstochowskiej, w Dolinie Prądnika, na Szlaku Orlich Gniazd. W Królestwie Polskim istniała gmina Ojców. W latach 1975–1998 miejscowość położona była w województwie krakowskim. W latach 1928–1966 Ojców miał status uzdrowiska posiadającego charakter użyteczności publicznej.","40PLN","15PLN`;
 
 console.log( txt.split(/[\r\n]+/gm) );
+
+document.addEventListener('DOMContentLoaded', init)
+
+function init(){
+    const uploaderInputEl = document.querySelector('.uploader__input')
+
+    uploaderInputEl.addEventListener('change', uploadFiles)
+}
+
+function uploadFiles(e){
+    const files = e.target.files
+
+    if(!files) return
+
+    const reader = new FileReader()
+    reader.onload = function(event){
+        const content = event.target.result
+    }
+
+    reader.readAsText(files)
+}
+
+//krok nastepny w domu, zrobic obsluge przekonwertowanego pliku csv wewnatrz reader.onload
+//wykorzystaj do tego oddzielna funkcje
