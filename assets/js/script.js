@@ -16,13 +16,23 @@ function uploadFiles(e){
 
     if(!files) return
 
-    const reader = new FileReader()
-    reader.onload = function(event){
-        const content = event.target.result
+    for(let file of files){
+
+        const reader = new FileReader()
+        reader.onload = function(event){
+            const content = event.target.result
+            formatCsvToArray(content)
+
+        }
+        reader.readAsText(file)
     }
 
-    reader.readAsText(files)
 }
 
-//krok nastepny w domu, zrobic obsluge przekonwertowanego pliku csv wewnatrz reader.onload
-//wykorzystaj do tego oddzielna funkcje
+function formatCsvToArray(string){
+    const splitedStringArr = string.split(/[\r\n]+/gm)
+
+    for(let line of splitedStringArr){
+        console.log(line.split("\\"))
+    }
+}
