@@ -20,9 +20,11 @@ function uploadFiles(e) {
 
         const reader = new FileReader()
         reader.onload = function (event) {
-            const content = event.target.result
-            const excursionsList = formatCsvToArray(content)
-            console.log(excursionsList);
+            const result = event.target.result
+            const excursionsList = formatCsvToArray(result)
+            excursionsList.forEach(function(trip){
+                createUserExcursion(trip)
+            })
         }
         reader.readAsText(file)
     }
@@ -39,7 +41,7 @@ function formatCsvToArray(string) {
 
         const excursion = {
             id: text[0],
-            name: text[1],
+            title: text[1],
             description: text[2],
             adultPrice: text[3],
             childPrice: text[4],
@@ -52,4 +54,25 @@ function formatCsvToArray(string) {
 
 function cleanCsvString(value){
     return value.replace(/^"|"$/g, "")
+}
+
+function createUserExcursion(excursionObj){
+    const excursionsListElement = document.querySelector('.panel__excursions')
+    const excursionLiPrototype = document.querySelector('.excursions__item--prototype')
+    const newExcursionLi = excursionLiPrototype.cloneNode(true)
+    newExcursionLi.classList.remove('excursions__item--prototype')
+
+    const excursionTitle = newExcursionLi.querySelector('.excursions__title')
+    excursionTitle.innerText = excursionObj.title
+
+    const excursionDescription = newExcursionLi.querySelector('.excursions__description')
+    excursionDescription.innerText = excursionObj.description
+
+    const adultPrice = newExcursionLi.querySelector('.excursions__price-adult')
+    adultPrice.innerText = excursionObj.adultPrice
+
+    const childPrice = newExcursionLi.querySelector('.excursions__price-child')
+    childPrice.innerText = excursionObj.childPrice
+
+    excursionsListElement.appendChild(newExcursionLi)
 }
