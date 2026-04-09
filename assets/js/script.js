@@ -76,3 +76,5 @@ function createUserExcursion(excursionObj){
 
     excursionsListElement.appendChild(newExcursionLi)
 }
+
+//dodac obsluge form wewnatrz .excursions__form, przypiac nasluchiwanie do ul .excursions, wykorzystac propagacje
