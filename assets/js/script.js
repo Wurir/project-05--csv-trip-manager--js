@@ -7,7 +7,7 @@ function init() {
     const excursionsList = document.querySelector('.excursions')
 
     uploaderInputEl.addEventListener('change', uploadFiles)
-    excursionsList.addEventListener('submit', updateBasket)
+    excursionsList.addEventListener('submit', addToBasket)
 }
 
 function uploadFiles(e) {
@@ -82,7 +82,7 @@ function createUserExcursion(excursionObj) {
     excursionsListElement.appendChild(newExcursionLi)
 }
 
-function updateBasket(e) {
+function addToBasket(e) {
     e.preventDefault()
 
     const excursionListItem = e.target
@@ -90,9 +90,22 @@ function updateBasket(e) {
     const adultPriceContainer = excursionListItem.querySelector('.excursions__field--adult')
     const childrenPriceContainer = excursionListItem.querySelector('.excursions__field--children')
 
+    const excursionHeader = excursionListItem.previousElementSibling
+    const excursionTitle = excursionHeader.querySelector('.excursions__title').textContent
+
     const adultPrice = Number(adultPriceContainer.dataset.priceAdult)
     const childrenPrice = Number(childrenPriceContainer.dataset.priceChildren)
 
-    const adultsQuantity = e.target.elements.adults.value
-    const childrenQuantity = e.target.elements.children.value
+    const adultsQuantity = Number(e.target.elements.adults.value)
+    const childrenQuantity = Number(e.target.elements.children.value)
+
+    const excursion = {
+        title: excursionTitle,
+        adultPrice,
+        adultsQuantity,
+        childrenPrice,
+        childrenQuantity
+    }
+    basket.push(excursion)
+    console.log(basket);
 }
