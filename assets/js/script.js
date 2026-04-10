@@ -21,7 +21,7 @@ function uploadFiles(e) {
         reader.onload = function (event) {
             const result = event.target.result
             const excursionsList = formatCsvToArray(result)
-            excursionsList.forEach(function(trip){
+            excursionsList.forEach(function (trip) {
                 createUserExcursion(trip)
             })
         }
@@ -32,7 +32,7 @@ function uploadFiles(e) {
 
 function formatCsvToArray(string) {
     const splitedStringArr = string.split(/[\r\n]+/gm)
-    
+
     const excursionsList = []
 
     for (let line of splitedStringArr) {
@@ -43,7 +43,7 @@ function formatCsvToArray(string) {
             title: text[1],
             description: text[2],
             adultPrice: text[3],
-            childPrice: text[4],
+            childrenPrice: text[4],
         }
         excursionsList.push(excursion)
     }
@@ -51,11 +51,11 @@ function formatCsvToArray(string) {
     return excursionsList
 }
 
-function cleanCsvString(value){
+function cleanCsvString(value) {
     return value.replace(/^"|"$/g, "")
 }
 
-function createUserExcursion(excursionObj){
+function createUserExcursion(excursionObj) {
     const excursionsListElement = document.querySelector('.panel__excursions')
     const excursionLiPrototype = document.querySelector('.excursions__item--prototype')
     const newExcursionLi = excursionLiPrototype.cloneNode(true)
@@ -70,20 +70,29 @@ function createUserExcursion(excursionObj){
     const adultPrice = newExcursionLi.querySelector('.excursions__price-adult')
     adultPrice.innerText = excursionObj.adultPrice
 
-    const childPrice = newExcursionLi.querySelector('.excursions__price-child')
-    childPrice.innerText = excursionObj.childPrice
+    const childrenPrice = newExcursionLi.querySelector('.excursions__price-children')
+    childrenPrice.innerText = excursionObj.childrenPrice
 
     const adultPriceContainer = newExcursionLi.querySelector('.excursions__field--adult')
     adultPriceContainer.dataset.priceAdult = excursionObj.adultPrice
 
-    const childPriceContainer = newExcursionLi.querySelector('.excursions__field--child')
-    childPriceContainer.dataset.priceChild = excursionObj.childPrice
+    const childrenPriceContainer = newExcursionLi.querySelector('.excursions__field--children')
+    childrenPriceContainer.dataset.priceChildren = excursionObj.childrenPrice
 
     excursionsListElement.appendChild(newExcursionLi)
 }
 
-function updateBasket(e){
+function updateBasket(e) {
     e.preventDefault()
 
-    const excursion = e.target
+    const excursionListItem = e.target
+
+    const adultPriceContainer = excursionListItem.querySelector('.excursions__field--adult')
+    const childrenPriceContainer = excursionListItem.querySelector('.excursions__field--children')
+
+    const adultPrice = Number(adultPriceContainer.dataset.priceAdult)
+    const childrenPrice = Number(childrenPriceContainer.dataset.priceChildren)
+
+    const adultsQuantity = e.target.elements.adults.value
+    const childrenQuantity = e.target.elements.children.value
 }
