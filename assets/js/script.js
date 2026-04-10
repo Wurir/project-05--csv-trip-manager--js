@@ -107,30 +107,29 @@ function addToBasket(e) {
         childrenQuantity
     }
     basket.push(excursion)
-    updateBasket()
+    updateBasket(excursion)
 }
 
-function updateBasket(){
+function updateBasket(excursion) {
     const summaryListEl = document.querySelector('.summary')
 
-    basket.forEach(function(excursion){
-        const summaryItemPrototype = summaryListEl.querySelector('.summary__item--prototype')
-        const newSummaryItem = summaryItemPrototype.cloneNode(true)
-        newSummaryItem.classList.remove('summary__item--prototype')
+    const summaryItemPrototype = summaryListEl.querySelector('.summary__item--prototype')
+    const newSummaryItem = summaryItemPrototype.cloneNode(true)
+    newSummaryItem.classList.remove('summary__item--prototype')
 
-        const summaryName = newSummaryItem.querySelector('.summary__name')
-        summaryName.innerText = excursion.title
+    const summaryName = newSummaryItem.querySelector('.summary__name')
+    summaryName.innerText = excursion.title
 
-        const summaryTotalPrice = newSummaryItem.querySelector('.summary__total-price')
+    const summaryTotalPrice = newSummaryItem.querySelector('.summary__total-price')
 
-        const totalAdultPrice = excursion.adultPrice * excursion.adultsQuantity
-        const totalChildrenPrice = excursion.childrenPrice * excursion.childrenQuantity
-        const totalPrice = totalAdultPrice + totalChildrenPrice
-        summaryTotalPrice.innerText = totalPrice + 'PLN'
+    const totalAdultPrice = excursion.adultPrice * excursion.adultsQuantity
+    const totalChildrenPrice = excursion.childrenPrice * excursion.childrenQuantity
+    const totalPrice = totalAdultPrice + totalChildrenPrice
+    summaryTotalPrice.innerText = totalPrice + 'PLN'
 
-        const summaryPrices = newSummaryItem.querySelector('.summary__prices')
-        summaryPrices.innerText = 'dorośli: ' + excursion.adultsQuantity + ' x ' + excursion.adultPrice + 'PLN, dzieci: ' + excursion.childrenQuantity + ' x ' + excursion.childrenPrice + 'PLN'
+    const summaryPrices = newSummaryItem.querySelector('.summary__prices')
+    summaryPrices.innerText = 'dorośli: ' + excursion.adultsQuantity + ' x ' + excursion.adultPrice + 'PLN, dzieci: ' + excursion.childrenQuantity + ' x ' + excursion.childrenPrice + 'PLN'
 
-        summaryListEl.appendChild(newSummaryItem)
-    })
+    summaryListEl.appendChild(newSummaryItem)
+
 }
