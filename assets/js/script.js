@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded', init)
 
-const basket = []
+let basket = []
 
 function init() {
     const uploaderInputEl = document.querySelector('.uploader__input')
     const excursionsList = document.querySelector('.excursions')
+    const summaryPanel = document.querySelector('.summary')
 
     uploaderInputEl.addEventListener('change', uploadFiles)
     excursionsList.addEventListener('submit', addToBasket)
+    summaryPanel.addEventListener('click', removeFromSummary)
 }
 
 function uploadFiles(e) {
@@ -37,7 +39,6 @@ function formatCsvToArray(string) {
 
     for (let line of splitedStringArr) {
         const text = line.split('","').map(cleanCsvString)
-
         const excursion = {
             id: text[0],
             title: text[1],
@@ -60,6 +61,8 @@ function createUserExcursion(excursionObj) {
     const excursionLiPrototype = document.querySelector('.excursions__item--prototype')
     const newExcursionLi = excursionLiPrototype.cloneNode(true)
     newExcursionLi.classList.remove('excursions__item--prototype')
+
+    newExcursionLi.dataset.id = excursionObj.id
 
     const excursionTitle = newExcursionLi.querySelector('.excursions__title')
     excursionTitle.innerText = excursionObj.title
@@ -90,6 +93,8 @@ function addToBasket(e) {
     const adultPriceContainer = excursionListItem.querySelector('.excursions__field--adult')
     const childrenPriceContainer = excursionListItem.querySelector('.excursions__field--children')
 
+    const excursionId = excursionListItem.parentElement.dataset.id
+
     const excursionHeader = excursionListItem.previousElementSibling
     const excursionTitle = excursionHeader.querySelector('.excursions__title').textContent
 
@@ -108,6 +113,7 @@ function addToBasket(e) {
 
     const totalPrice = (adultPrice * adultsQuantity) + (childrenPrice * childrenQuantity)
     const excursion = {
+        id: excursionId,
         title: excursionTitle,
         adultPrice,
         adultsQuantity,
@@ -131,6 +137,7 @@ function updateBasket(excursion) {
     const summaryItemPrototype = summaryListEl.querySelector('.summary__item--prototype')
     const newSummaryItem = summaryItemPrototype.cloneNode(true)
     newSummaryItem.classList.remove('summary__item--prototype')
+    newSummaryItem.dataset.id = excursion.id
 
     const summaryName = newSummaryItem.querySelector('.summary__name')
     summaryName.innerText = excursion.title
@@ -156,4 +163,25 @@ function showTotalOrderPrice(){
     })
 
     totalPriceEl.innerText = totalPrice +'PLN'
+}
+
+function removeFromSummary(e){
+    e.preventDefault()
+    
+    const targetEl = e.target
+
+    if(targetEl.classList.contains('summary__btn-remove')){
+        const parentEl = targetEl.parentElement
+        const liEl = parentEl.parentElement
+        const idOfExcursion = liEl.dataset.id
+        
+        removeFromBasket(idOfExcursion)
+        liEl.remove()
+    }
+}
+
+function removeFromBasket(idToRemove){
+    basket = basket.filter(function(excursion){
+        return excursion.id !== idToRemove
+    })
 }
