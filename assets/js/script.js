@@ -96,18 +96,33 @@ function addToBasket(e) {
     const adultPrice = Number(adultPriceContainer.dataset.priceAdult)
     const childrenPrice = Number(childrenPriceContainer.dataset.priceChildren)
 
-    const adultsQuantity = Number(e.target.elements.adults.value)
-    const childrenQuantity = Number(e.target.elements.children.value)
+    const adultsQuantityEl = e.target.elements.adults
+    const adultsQuantity = Number(adultsQuantityEl.value)
 
+    const childrenQuantityEl = e.target.elements.children
+    const childrenQuantity = Number(childrenQuantityEl.value)
+
+    if(adultsQuantityEl.value === '' && childrenQuantityEl.value === ''){
+        return
+    }
+
+    const totalPrice = (adultPrice * adultsQuantity) + (childrenPrice * childrenQuantity)
     const excursion = {
         title: excursionTitle,
         adultPrice,
         adultsQuantity,
         childrenPrice,
-        childrenQuantity
+        childrenQuantity,
+        totalPrice
     }
+
     basket.push(excursion)
     updateBasket(excursion)
+    showTotalOrderPrice()
+
+    adultsQuantityEl.value = ''
+    childrenQuantityEl.value = ''
+ 
 }
 
 function updateBasket(excursion) {
@@ -122,14 +137,23 @@ function updateBasket(excursion) {
 
     const summaryTotalPrice = newSummaryItem.querySelector('.summary__total-price')
 
-    const totalAdultPrice = excursion.adultPrice * excursion.adultsQuantity
-    const totalChildrenPrice = excursion.childrenPrice * excursion.childrenQuantity
-    const totalPrice = totalAdultPrice + totalChildrenPrice
-    summaryTotalPrice.innerText = totalPrice + 'PLN'
+    summaryTotalPrice.innerText = excursion.totalPrice + 'PLN'
 
     const summaryPrices = newSummaryItem.querySelector('.summary__prices')
     summaryPrices.innerText = 'dorośli: ' + excursion.adultsQuantity + ' x ' + excursion.adultPrice + 'PLN, dzieci: ' + excursion.childrenQuantity + ' x ' + excursion.childrenPrice + 'PLN'
 
     summaryListEl.appendChild(newSummaryItem)
 
+}
+
+function showTotalOrderPrice(){
+    const totalPriceEl = document.querySelector('.order__total-price-value')
+
+    let totalPrice = 0
+
+    basket.forEach(function(excursion){
+        totalPrice += excursion.totalPrice
+    })
+
+    totalPriceEl.innerText = totalPrice +'PLN'
 }
