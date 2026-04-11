@@ -174,10 +174,10 @@ function removeFromSummary(e){
         const parentEl = targetEl.parentElement
         const liEl = parentEl.parentElement
         const idOfExcursion = liEl.dataset.id
-        const totalPriceText = document.querySelector('.order__total-price-value').textContent
-        const totalPrice = parseFloat()
+        const totalPriceText = targetEl.previousElementSibling.textContent
+        const totalPrice = parseFloat(totalPriceText)
         
-        updateSummaryPrice()
+        updateSummaryPrice(totalPrice)
         removeFromBasket(idOfExcursion)
         liEl.remove()
     }
@@ -191,9 +191,8 @@ function removeFromBasket(idToRemove){
 
 function updateSummaryPrice(excursionPrice){
     const totalPriceEl = document.querySelector('.order__total-price-value')
-
     const priceAsText = totalPriceEl.textContent
-    const totalPrice = parseFloat(priceAsText)
+    const currentPrice = parseFloat(priceAsText)
     
-    totalPriceEl.textContent = totalPrice - excursionPrice + 'PLN'
+    totalPriceEl.textContent = currentPrice - excursionPrice + 'PLN'
 }
