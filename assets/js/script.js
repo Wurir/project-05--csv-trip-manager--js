@@ -6,10 +6,12 @@ function init() {
     const uploaderInputEl = document.querySelector('.uploader__input')
     const excursionsList = document.querySelector('.excursions')
     const summaryPanel = document.querySelector('.summary')
+    const orderForm = document.querySelector('.order')
 
     uploaderInputEl.addEventListener('change', uploadFiles)
     excursionsList.addEventListener('submit', addToBasket)
     summaryPanel.addEventListener('click', removeFromSummary)
+    orderForm.addEventListener('submit', submitOrder)
 }
 
 function uploadFiles(e) {
@@ -195,4 +197,46 @@ function updateSummaryPrice(excursionPrice){
     const currentPrice = parseFloat(priceAsText)
     
     totalPriceEl.textContent = currentPrice - excursionPrice + 'PLN'
+}
+
+function submitOrder(e){
+    e.preventDefault()
+
+    let errors = []
+
+    const price = e.currentTarget.querySelector('.order__total-price-value').textContent
+    const nameEl = e.currentTarget.elements.name
+    const emailEl = e.currentTarget.elements.email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  
+    if(nameEl.value === ''){
+        errors.push('Imię i nazwisko jest wymagane')
+    }
+    if(!emailRegex.test(emailEl.value)){
+        errors.push('Niepoprawny email')
+    }
+    if(errors.length > 0){
+        displayErrors(errors)
+        errors = []
+    }else {
+        clearErrors()
+    }
+    
+}
+
+function displayErrors(errorsList){
+    const errorsListElement = document.querySelector('.order__errors-list')
+    clearErrors()
+
+    errorsList.forEach(function(error){
+        const liEl = document.createElement('li')
+        liEl.style.color = 'red'
+        liEl.innerText = error
+        errorsListElement.appendChild(liEl)
+    })
+}
+
+function clearErrors(){
+    const errorsListElement = document.querySelector('.order__errors-list')
+    errorsListElement.innerHTML = ''
 }

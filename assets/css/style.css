@@ -44,6 +44,17 @@ ul {
     padding-bottom: 20px;
 }
 
-.excursions__item--prototype{
+.excursions__item--prototype, .summary__item--prototype{
     display: none;
+}
+
+.order__errors-list {
+    height: 30px;
+    margin: 0 0 10px 10px;
+    font-size: 0.9rem;
+}
+
+.order__field {
+    margin: 10px 0;
+    
 }
