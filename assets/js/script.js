@@ -209,6 +209,9 @@ function submitOrder(e){
     const emailEl = e.currentTarget.elements.email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   
+    if(parseFloat(price) <= 0){
+        errors.push('Nie wybrano wycieczki')
+    }
     if(nameEl.value === ''){
         errors.push('Imię i nazwisko jest wymagane')
     }
@@ -220,7 +223,12 @@ function submitOrder(e){
         errors = []
     }else {
         clearErrors()
+        alert('Dziękujemy za złożenie zamówienia o wartości '+ price +'. Szczegóły zamówienia zostały wysłane na adres e-mail: ' + emailEl.value)
+        nameEl.value = ''
+        emailEl.value = ''
     }
+
+    
     
 }
 
