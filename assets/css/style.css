@@ -48,11 +48,11 @@ ul {
     display: none;
 }
 
-.order__errors-list {
+/* .order__errors-list {
     height: 45px;
     margin: 0 0 10px 10px;
     font-size: 0.9rem;
-}
+} */
 
 .order__field {
     margin: 10px 0;

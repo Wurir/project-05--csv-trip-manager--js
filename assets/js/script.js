@@ -17,7 +17,7 @@ function init() {
 function uploadFiles(e) {
     const files = e.target.files
 
-    if (!files) return
+    if (!files || files[0].type !=='text/csv') return
 
     for (let file of files) {
 
@@ -29,7 +29,7 @@ function uploadFiles(e) {
                 createUserExcursion(trip)
             })
         }
-        reader.readAsText(file)
+        reader.readAsText(file, 'UTF-8')
     }
 
 }
@@ -228,8 +228,6 @@ function submitOrder(e){
         emailEl.value = ''
     }
 
-    
-    
 }
 
 function displayErrors(errorsList){
@@ -248,3 +246,8 @@ function clearErrors(){
     const errorsListElement = document.querySelector('.order__errors-list')
     errorsListElement.innerHTML = ''
 }
+
+//dodaj fn do if() np isNumber(user.value) etc
+//przy wyborze ilosci osob do wyciewczki, input moze byc maly dla max 2digit
+//jesli user chce dodac wycieczke, nie podjajac ilosci osob, alert!
+//walidacja regexem imienia i nazwiska 
