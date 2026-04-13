@@ -44,17 +44,114 @@ ul {
     padding-bottom: 20px;
 }
 
-.excursions__item--prototype, .summary__item--prototype{
+
+
+.order__field {
+    margin: 20px 0;
+
+}
+
+.uploader__label{
+    font-size: 1.5rem;
+}
+
+.input[type="file"]{
     display: none;
 }
 
-/* .order__errors-list {
-    height: 45px;
-    margin: 0 0 10px 10px;
-    font-size: 0.9rem;
-} */
+.panel__form{
+    background-color: rgba(191, 235, 253, 0.548);
+    border-radius: 4px;
+}
 
-.order__field {
-    margin: 10px 0;
-    
+
+.order__total-price{
+    background-color: rgb(177, 177, 177);
+    text-align: center;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order__total-price-value{
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+
+.order__field-name{
+    font-size: 1.1rem;
+    justify-self: flex-start;
+}
+
+.order__field-input{
+    border: none;
+    border-radius: 4px;
+    height: 25px;
+    outline: none;
+    padding-left: 5px;
+}
+
+.excursions__title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem
+}
+
+.excursions__description{
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+.excursions__item{
+    border-color: rgb(64, 138, 248);
+    display: flex;
+    flex-direction: column;
+}
+
+.excursions__form{
+    margin-top: auto;
+}
+
+.excursions__field{
+    margin: 15px;
+}
+
+.excursions__field-name{
+    font-size: 1.1rem;
+}
+
+.excursions__field-input{
+    border-radius: 4px;
+    width: 80px;
+    height: 30px;
+    border: 1px solid rgb(64, 138, 248);
+    outline: none;
+    padding-left: 10px;
+}
+
+.btn{
+    border: none;
+    border-radius: 4px;
+    min-width: 200px;
+    height: 40px;
+    color: whitesmoke;
+    background-color: rgb(64, 138, 248);
+    font-size: 1.1rem;
+    padding: 3px 5px;
+    margin: 5px;
+    justify-self: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn:hover{
+    background-color: rgb(23, 97, 207);
+}
+
+
+.excursions__item--prototype, .summary__item--prototype{
+    display: none;
 }

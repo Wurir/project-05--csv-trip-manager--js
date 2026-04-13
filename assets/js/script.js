@@ -109,7 +109,8 @@ function addToBasket(e) {
     const childrenQuantityEl = e.target.elements.children
     const childrenQuantity = Number(childrenQuantityEl.value)
 
-    if(adultsQuantityEl.value === '' && childrenQuantityEl.value === ''){
+    if(isEmpty(adultsQuantityEl.value) && isEmpty(childrenQuantityEl.value)) {
+        alert('Wybierz ilość osób')
         return
     }
 
@@ -207,12 +208,13 @@ function submitOrder(e){
     const price = e.currentTarget.querySelector('.order__total-price-value').textContent
     const nameEl = e.currentTarget.elements.name
     const emailEl = e.currentTarget.elements.email
+    const nameRegex = /^[A-Za-zÀ-ž]+(?:-[A-Za-zÀ-ž]+)?\s+[A-Za-zÀ-ž]+(?:-[A-Za-zÀ-ž]+)?$/
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   
     if(parseFloat(price) <= 0){
         errors.push('Nie wybrano wycieczki')
     }
-    if(nameEl.value === ''){
+    if(!nameRegex.test(nameEl.value)){
         errors.push('Imię i nazwisko jest wymagane')
     }
     if(!emailRegex.test(emailEl.value)){
@@ -247,7 +249,7 @@ function clearErrors(){
     errorsListElement.innerHTML = ''
 }
 
-//dodaj fn do if() np isNumber(user.value) etc
-//przy wyborze ilosci osob do wyciewczki, input moze byc maly dla max 2digit
-//jesli user chce dodac wycieczke, nie podjajac ilosci osob, alert!
-//walidacja regexem imienia i nazwiska 
+
+function isEmpty(value){
+    return value === ''
+}
