@@ -151,6 +151,23 @@ ul {
     background-color: rgb(23, 97, 207);
 }
 
+.summary__item{
+    margin: 10px 10px 20px 10px;
+}
+
+.summary__title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary__prices{
+    margin-top: 3px;
+}
+
+.summary__btn-remove{
+    color: red;
+    text-decoration: none;
+}
 
 .excursions__item--prototype, .summary__item--prototype{
     display: none;
